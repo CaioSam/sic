@@ -7,9 +7,6 @@ import mysql.connector
 from mysql.connector import Error
 import csv
 
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 4000;
 app = Flask(__name__)
 app.secret_key = 'my_secret_key_12345'
 
