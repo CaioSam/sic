@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Complementar Tarefas</title>
+  </head>
+  <body>
+    <h1>Complementar Tarefas</h1>
+    <form method="post" action="{{ url_for('complementar_tarefas_periodo') }}">
+      <label for="data_inicial">Data Inicial:</label>
+      <input type="date" id="data_inicial" name="data_inicial" required>
+      <br>
+      <label for="data_final">Data Final:</label>
+      <input type="date" id="data_final" name="data_final" required>
+      <br>
+      {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+      {% endfor %}
+      <button type="submit">Complementar Tarefas</button>
+    </form>  
+  </body>
+</html>

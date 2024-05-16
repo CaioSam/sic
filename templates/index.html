@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICI</title>
+    <style>
+        body {
+            background-color: bisque;
+            text-align: center; /* centralizar o conteúdo */
+        }
+        a {
+            background-color: #4CAF50; /* cor de fundo dos botões */
+            color: #ffffff; /* cor do texto dos botões */
+            padding: 10px 20px; /* espaçamento interno dos botões */
+            border: none; /* remover borda dos botões */
+            border-radius: 5px; /* arredondar os cantos dos botões */
+            cursor: pointer; /* mudar o cursor para uma mão quando passar sobre o botão */
+        }
+        a:hover {
+            background-color: #3e8e41; /* cor de fundo dos botões quando hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>CONTROLE CORTE DE CANA</h1>
+    <br><br>
+    <a href="{{ url_for('cadastro_empresas') }}">CADASTRO DE EMPRESAS</a>
+    <br><br><br>
+    <a href="{{ url_for('cadastro_empregados') }}">CADASTRO DE EMPREGADOS</a>
+    <br><br><br>
+    <a href="{{ url_for('cadastro_tarefas') }}">CADASTRO DE TAREFAS</a>
+    <br><br><br><br>
+    <a href="{{ url_for('consulta_tarefas_por_periodo')}}"> EXCLUSÃO TAREFAS</a>
+    <br><br><br>
+    <a href="{{ url_for('relatorio', data_inicial='2024-03-26', data_final='2024-04-25') }}">DIÁRIO TAREFAS</a>
+    <br><br><br>
+    <a href="{{url_for('relatorio_csv') }}">Gerar CSV</a>
+    <br><br><br>
+    <a href="{{url_for('complementar_tarefas_periodo') }}">COMPLEMENTAR TAREFAS</a>
+    <br><br><br>   
+</body>
+</html>

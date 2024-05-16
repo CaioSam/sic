@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Relatório de Tarefas</title>
+  </head>
+  <body>
+    <a href="{{ url_for('home') }}">Início</a>
+    <h1>Relatório de Tarefas</h1>
+    <form action="{{ url_for('gerar_relatorio_view') }}" method="post">
+      <label for="data_inicial">Data Inicial:</label>
+      <input type="date" id="data_inicial" name="data_inicial" required>
+      <br>
+      <label for="data_final">Data Final:</label>
+      <input type="date" id="data_final" name="data_final" required>
+      <br>
+      <button type="submit">Gerar Relatório</button>
+      <button onclick="imprimirTodasTabelas()">Imprimir Todas Tabelas</button>
+    </form>
+    <br>   
+    {% for funcionario_codigo, funcionario_tarefas in relatorio.items() %}                  
+      <table id="{{ funcionario_codigo }}" border="1" style="width: 100%; border-collapse: collapse;">       
+        <thead>  
+        <caption>
+          <h4>Empresa: Criar uma função para carregar o nome da empresa do banco</h4>
+          <h3>{{funcionario_codigo}} - {{ funcionario_tarefas[0]['nome_completo'] }}</h3>
+          <h4>Mensal: 04/2024 (preciso criar uma função para gerar essa competência)</h>              
+          <td colspan="5" style="text-align: center;">Relatório de tarefas</td></caption>        
+          <tr>            
+            <th>Data</th>
+            <th>Tarefa</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tarefa in funcionario_tarefas[:-1] %}
+            <tr style="text-align: right;">
+              <td>{{ tarefa.data.strftime('%d-%m-%Y') }}</td>
+              <td>{{ tarefa.tarefa }}</td>
+              <td>{{ tarefa.quantidade }}</td>
+              <td>{{ tarefa.valor }}</td>
+              <td>{{ tarefa.total }}</td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="4" style="text-align: right;"><b>Total:</b></td>
+            <td style="text-align: right;"><b>{{ funcionario_tarefas[-1].total_geral }}</b></td> 
+          </tr>
+          <tr>            
+            <td colspan="5" style="text-align: center;"><br><br><hr style="width: 50%; margin: 0 auto;">Assinatura:</td>
+          </tr>
+        </tbody>
+      </table>      
+      <button onclick="imprimirTabela('{{ funcionario_codigo }}')">Imprimir Tabela</button>
+    {% endfor %}    
+    <script>
+      function imprimirTabela(id) {
+        var tabela = document.getElementById(id);
+        var printWindow = window.open('', '', 'height=600,width=900');
+        printWindow.document.write('<html><head><title>Impressão</title>');
+        printWindow.document.write('</head><body >');
+        printWindow.document.write(tabela.outerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+      }
+
+      function imprimirTodasTabelas() {
+        var tables = document.querySelectorAll('table');
+        var printWindow = window.open('', '', 'height=600,width=900');
+        printWindow.document.write('<html><head><title>Impressão</title>');
+        printWindow.document.write('<style>table { page-break-after: always; }</style>'); // Add page break after each table
+        printWindow.document.write('</head><body >');
+        tables.forEach(function(table) {
+          printWindow.document.write(table.outerHTML);
+          printWindow.document.write('<br><br>'); // Add some space between tables
+        });
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+      }
+    </script>  
+  </body>
+</html>

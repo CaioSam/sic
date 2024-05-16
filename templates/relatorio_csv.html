@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RELATORIO</title>
+</head>
+<body>
+    <a href="{{ url_for('home') }}">Início</a>
+    <h1>Gerar csv</h1>    
+<form action="" method="post">
+    <label for="data_inicio">Data Início:</label>
+    <input type="date" id="data_inicio" name="data_inicio" required>
+    <br>
+    <label for="data_fim">Data Fim:</label>
+    <input type="date" id="data_fim" name="data_fim" required>
+    <br>
+    <input type="submit" value="Gerar Relatório">
+</form>
+
+{% if flash %}
+    <div class="flash">{{ flash }}</div>
+{% endif %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Empregados</title>
+</head>
+<body>
+  <a href="{{ url_for('home') }}">Início</a>
+    <h1>Cadastro de Empregados</h1>
+    <form method="POST">
+        <label for="codigo">Código:</label>
+        <input type="number" id="codigo" name="codigo" required>
+        <br>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome_completo" name="nome_completo" required>
+        <br>
+        <label for="cargo">Cargo:</label>
+        <input type="text" id="cargo" name="cargo" required>
+        <br>
+        <label for="data_admissao">Data de Admissão:</label>
+        <input type="date" id="data_admissao" name="data_admissao" required>
+        <br>
+        <label for="empresa">Empresa:</label>
+        <select id="empresa" name="empresa">
+            {% for empresa in empresas %}
+                <option value="{{ empresa[0] }}">{{ empresa[0] }} - {{ empresa[1] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">SALVAR</button>
+    </form>
+    <h2>Funcionários cadastrados</h2>
+    <table border="1">
+      <tr>
+        <th>Codigo</th>
+        <th>Nome Completo</th>
+        <th>Cargo</th>
+        <th>Data Admissao</th>
+      </tr>
+      {% for funcionario in funcionarios %}
+      <tr>
+        <td>{{ funcionario.codigo }}</td>
+        <td>{{ funcionario.nome_completo }}</td>
+        <td>{{ funcionario.cargo }}</td>
+        <td>{{ funcionario.data_admissao }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+</body>
+</html>
